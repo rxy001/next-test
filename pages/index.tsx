@@ -1,24 +1,35 @@
 "use client";
-import { css } from "@emotion/react";
-import { NexProvider, Button } from "@nex-ui/react";
-import { useMemo } from "react";
+import { NexProvider, Button, createTheme } from "@nex-ui/react";
+
+const theme = createTheme({
+  colors: {
+    custom: {
+      50: "#ecfeff",
+      100: "#cffafe",
+      200: "#a5f3fc",
+      300: "#67e8f9",
+      400: "#22d3ee",
+      500: "#06b6d4",
+      600: "#0891b2",
+      700: "#0e7490",
+      800: "#155e75",
+      900: "#164e63",
+      contrastText: "#fff",
+    },
+  },
+});
+
+type Config = typeof theme;
+
+declare module "@nex-ui/react" {
+  export interface UserConfig extends Config {}
+}
 
 const Home = () => {
-  const a = useMemo(() => {
-    return 123;
-  }, []);
   return (
-    <div
-      css={css`
-        display: flex;
-        flex-direction: column;
-        color: red;
-      `}
-    >
-      <NexProvider>
-        <Button>123123</Button>
-      </NexProvider>
-    </div>
+    <NexProvider theme={theme}>
+      <Button color="custom">123123</Button>
+    </NexProvider>
   );
 };
 
