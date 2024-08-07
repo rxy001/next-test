@@ -1,7 +1,8 @@
 "use client";
-import { NexProvider, Button, createTheme } from "@nex-ui/react";
+import { Profiler } from "react";
+import { NexProvider, Button, defineBasicTheme } from "@nex-ui/react";
 
-const theme = createTheme({
+const theme = defineBasicTheme({
   colors: {
     custom: {
       50: "#ecfeff",
@@ -19,16 +20,27 @@ const theme = createTheme({
   },
 });
 
-type Config = typeof theme;
+type ExtraTheme = typeof theme;
 
 declare module "@nex-ui/react" {
-  export interface UserConfig extends Config {}
+  interface Theme extends ExtraTheme {}
 }
 
 const Home = () => {
   return (
     <NexProvider theme={theme}>
-      <Button color="custom">123123</Button>
+      <Profiler
+        id="button"
+        onRender={(...a) => {
+          console.log(a);
+        }}
+      >
+        {new Array(1000).fill(undefined).map((_, i) => (
+          <Button color="custom" key={i}>
+            123123
+          </Button>
+        ))}
+      </Profiler>
     </NexProvider>
   );
 };
