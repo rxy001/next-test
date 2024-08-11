@@ -14,9 +14,6 @@ const nextConfig = {
   ],
   webpack: (config) => {
     config.resolve.alias.react = path.resolve("./node_modules/react");
-    config.resolve.alias["@nex-ui/react"] = path.resolve(
-      "./node_modules/@nex-ui/react"
-    );
     config.resolve.conditionNames = ["source", "import"];
     return config;
   },

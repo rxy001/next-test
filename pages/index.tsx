@@ -1,6 +1,12 @@
 "use client";
-import { Profiler } from "react";
-import { NexProvider, Button, defineBasicTheme } from "@nex-ui/react";
+import { ChangeEvent, Profiler, useRef } from "react";
+import type { MouseEvent } from "react";
+import {
+  NexProvider,
+  Button,
+  defineBasicTheme,
+  defineComponentsTheme,
+} from "@nex-ui/react";
 
 const theme = defineBasicTheme({
   colors: {
@@ -15,32 +21,30 @@ const theme = defineBasicTheme({
       700: "#0e7490",
       800: "#155e75",
       900: "#164e63",
-      contrastText: "#fff",
+      contrastText: "blue",
     },
   },
 });
 
+// const components = defineComponentsTheme({
+//   button: {
+//     defaultProps: {
+//       color: "purple",
+//       size: "lg",
+//     },
+//   },
+// });
+
 type ExtraTheme = typeof theme;
 
 declare module "@nex-ui/react" {
-  interface Theme extends ExtraTheme {}
+  interface ThemeOverrides extends ExtraTheme {}
 }
 
 const Home = () => {
   return (
     <NexProvider theme={theme}>
-      <Profiler
-        id="button"
-        onRender={(...a) => {
-          console.log(a);
-        }}
-      >
-        {new Array(1000).fill(undefined).map((_, i) => (
-          <Button color="custom" key={i}>
-            123123
-          </Button>
-        ))}
-      </Profiler>
+      <Button color="red">123123</Button>
     </NexProvider>
   );
 };
